@@ -1,5 +1,5 @@
 function WalletForm() {
-  return <div>WalletForm</div>;
+  return '';
 }
 
 export default WalletForm;

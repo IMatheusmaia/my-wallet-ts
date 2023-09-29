@@ -1,10 +1,11 @@
-import { useSelector } from 'react-redux';
+import Table from '../components/Table';
 
 function Wallet() {
-  const globalState = useSelector((state) => state);
-  console.log(globalState);
-
-  return <div>TrybeWallet</div>;
+  return (
+    <div>
+      <Table />
+    </div>
+  );
 }
 
 export default Wallet;

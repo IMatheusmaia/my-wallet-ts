@@ -12,7 +12,7 @@ const INITIAL_USER_STATE = {
 
 const userReducer = (state = INITIAL_USER_STATE, action: ActionUserType) => {
   if (action.type === 'ADD_USER') {
-    return { ...state, ...action.user };
+    return action.user;
   }
   return state;
 };
