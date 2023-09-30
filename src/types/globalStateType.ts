@@ -1,22 +1,22 @@
 import { UserType } from '../redux/actions/useActions';
 
 export type ExchangeRatesType = {
-  [currency: string]: { ask: string };
-  USD: { ask: string };
-  ARS: { ask: string };
-  AUD: { ask: string };
-  BTC: { ask: string };
-  CAD: { ask: string };
-  CHF: { ask: string };
-  XRP: { ask: string };
-  CNY: { ask: string };
-  DOGE: { ask: string };
-  ETH: { ask: string };
-  EUR: { ask: string };
-  GBP: { ask: string };
-  ILS: { ask: string };
-  JPY: { ask: string };
-  LTC: { ask: string };
+  [currency: string]: { ask: string, name: string };
+  USD: { ask: string, name: string };
+  ARS: { ask: string, name: string };
+  AUD: { ask: string, name: string };
+  BTC: { ask: string, name: string };
+  CAD: { ask: string, name: string };
+  CHF: { ask: string, name: string };
+  XRP: { ask: string, name: string };
+  CNY: { ask: string, name: string };
+  DOGE: { ask: string, name: string };
+  ETH: { ask: string, name: string };
+  EUR: { ask: string, name: string };
+  GBP: { ask: string, name: string };
+  ILS: { ask: string, name: string };
+  JPY: { ask: string, name: string };
+  LTC: { ask: string, name: string };
 };
 
 export type ExpensesType = {

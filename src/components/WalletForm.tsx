@@ -4,6 +4,7 @@ import { currencesAction, thunkExpenseAction } from '../redux/actions/walletActi
 import GlobalStateType from '../types/globalStateType';
 import fetchData from '../helper/request';
 import DispatchAsyncType from '../types/dispatchAsync';
+import '../styles/walletForm.css';
 
 function WalletForm() {
   const dispatch = useDispatch();
@@ -16,7 +17,7 @@ function WalletForm() {
     currency: 'USD',
     method: 'Dinheiro',
     tag: 'Alimentação',
-    exchangeRates: {},
+    exchangeRates: { ask: '', name: '' },
   };
 
   const [inputValue, setInputValue] = useState(INITIAL_INPUT_STATE);
@@ -45,7 +46,7 @@ function WalletForm() {
   };
 
   return (
-    <form>
+    <form className="input-form">
       <label>
         Descrição:
         <input
