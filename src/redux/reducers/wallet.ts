@@ -1,6 +1,8 @@
+import { ExpensesType } from '../../types/globalStateType';
+
 type ActionWalletType = {
   type: string,
-  payload: any
+  payload: string[] | ExpensesType
 };
 
 const INITIAL_WALLET_STATE = {
@@ -11,7 +13,19 @@ const INITIAL_WALLET_STATE = {
 };
 
 const walletReducer = (state = INITIAL_WALLET_STATE, action: ActionWalletType) => {
-  return state;
+  switch (action.type) {
+    case 'REQUEST_CURRENCIES':
+      return { ...state, currencies: action.payload };
+    case 'ADD_EXPENSE':
+      return { ...state,
+        expenses: [...state.expenses, {
+          ...action.payload,
+          id: state.expenses.length,
+        }],
+      };
+    default:
+      return state;
+  }
 };
 
 export default walletReducer;

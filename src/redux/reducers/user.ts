@@ -1,4 +1,4 @@
-import { UserType } from '../actions';
+import { UserType } from '../actions/useActions';
 
 type ActionUserType = {
   type: string,

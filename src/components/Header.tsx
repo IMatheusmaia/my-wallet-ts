@@ -1,12 +1,25 @@
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
-import GlobalStateType from '../types/globalStateType';
+import GlobalStateType, { ExpensesType } from '../types/globalStateType';
 import logotype from '../assets/logo login Trybe Wallet.svg';
 import '../styles/header.css';
 
 function Header() {
-  const globalState = useSelector((state: GlobalStateType) => state);
-  const [expenses, setExpenses] = useState<number>(0);
+  const userGlobalState = useSelector((state: GlobalStateType) => state);
+  const walletGlobalState = useSelector(
+    (state: GlobalStateType) => state.wallet.expenses,
+  );
+  const [expense, setExpense] = useState<number>(0);
+
+  const totalExpense = (expenseState: ExpensesType[]) => {
+    const total = expenseState.reduce((
+      acc: number,
+      { value, currency, exchangeRates },
+    ) => {
+      return acc + (Number(value) * Number(exchangeRates[currency].ask));
+    }, 0);
+    return (Number(total.toFixed(2)));
+  };
 
   return (
     <div
@@ -17,18 +30,18 @@ function Header() {
         <li
           data-testid="total-field"
         >
-          {`Total de despesas: ${expenses}`}
-          {' '}
-          <span
-            data-testid="header-currency-field"
-          >
-            BRL
-          </span>
+          { walletGlobalState.length > 0
+            ? `${totalExpense(walletGlobalState)}` : `${expense}` }
         </li>
+        <span
+          data-testid="header-currency-field"
+        >
+          BRL
+        </span>
         <li
           data-testid="email-field"
         >
-          {`Usuário: ${globalState.user.email}`}
+          {`Usuário: ${userGlobalState.user.email}`}
         </li>
       </ul>
     </div>

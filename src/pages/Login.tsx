@@ -2,7 +2,7 @@ import { useDispatch } from 'react-redux';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import logotype from '../assets/logo login Trybe Wallet.svg';
-import { actionUser } from '../redux/actions';
+import { actionUser } from '../redux/actions/useActions';
 import '../styles/login.css';
 
 type UserType = {
