@@ -31,7 +31,7 @@ function Header() {
           data-testid="total-field"
         >
           { walletGlobalState.length > 0
-            ? `${totalExpense(walletGlobalState)}` : `${expense}` }
+            ? `${totalExpense(walletGlobalState)}` : `${expense.toFixed(2)}` }
         </li>
         <span
           data-testid="header-currency-field"

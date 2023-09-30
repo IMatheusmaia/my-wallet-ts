@@ -23,6 +23,10 @@ const walletReducer = (state = INITIAL_WALLET_STATE, action: ActionWalletType) =
           id: state.expenses.length,
         }],
       };
+    case 'DELETE_EXPENSE':
+      return {
+        ...state,
+        expenses: [...state.expenses].filter(({ id }) => id !== action.payload) };
     default:
       return state;
   }

@@ -19,3 +19,9 @@ export const thunkExpenseAction = (expenses: any) => {
     Dispatch(expenseAction({ ...expenses, exchangeRates: data }));
   };
 };
+
+export const deleteExpenseAction = (id: number) => (
+  {
+    type: 'DELETE_EXPENSE',
+    payload: id,
+  });
