@@ -2,7 +2,8 @@ import { ExpensesType } from '../../types/globalStateType';
 
 type ActionWalletType = {
   type: string,
-  payload: string[] | ExpensesType
+  payload: ExpensesType,
+  editor?: boolean,
 };
 
 const INITIAL_WALLET_STATE = {
@@ -22,11 +23,31 @@ const walletReducer = (state = INITIAL_WALLET_STATE, action: ActionWalletType) =
           ...action.payload,
           id: state.expenses.length,
         }],
+        editor: false,
+        idToEdit: 0,
       };
     case 'DELETE_EXPENSE':
       return {
         ...state,
         expenses: [...state.expenses].filter(({ id }) => id !== action.payload) };
+    case 'EDIT_EXPENSE':
+      return {
+        ...state,
+        idToEdit: action.payload,
+        editor: action.editor,
+      };
+    case 'UPDATE_EXPENSE':
+      return {
+        ...state,
+        expenses: state.expenses.map((obj: ExpensesType) => {
+          if (obj.id === state.idToEdit) {
+            return { ...action.payload, exchangeRates: obj.exchangeRates };
+          }
+          return obj;
+        }),
+        editor: false,
+        idToEdit: 0,
+      };
     default:
       return state;
   }

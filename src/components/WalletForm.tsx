@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { currencesAction, thunkExpenseAction } from '../redux/actions/walletActions';
+import { currencesAction,
+  thunkExpenseAction, updateExpenseAction } from '../redux/actions/walletActions';
 import GlobalStateType from '../types/globalStateType';
 import fetchData from '../helper/request';
 import DispatchAsyncType from '../types/dispatchAsync';
@@ -10,14 +11,18 @@ function WalletForm() {
   const dispatch = useDispatch();
   const dispatchAsync: DispatchAsyncType = useDispatch();
   const currencesState = useSelector((state:GlobalStateType) => state.wallet.currencies);
+  const editState = useSelector((state:GlobalStateType) => state.wallet.editor);
+  const idState = useSelector((state:GlobalStateType) => state.wallet.idToEdit);
+  const globalExpenseEdit = useSelector((state
+  :GlobalStateType) => state.wallet.expenses[idState]);
 
   const INITIAL_INPUT_STATE = {
+    id: 0,
     value: '',
     description: '',
     currency: 'USD',
     method: 'Dinheiro',
     tag: 'Alimentação',
-    exchangeRates: { ask: '', name: '' },
   };
 
   const [inputValue, setInputValue] = useState(INITIAL_INPUT_STATE);
@@ -42,6 +47,13 @@ function WalletForm() {
   const handleClick = (event:React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     dispatchAsync(thunkExpenseAction({ ...inputValue }));
+    setInputValue(globalExpenseEdit);
+    clearInputs();
+  };
+
+  const handleClickUpdate = (event:React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    dispatch(updateExpenseAction({ ...inputValue, id: idState }));
     clearInputs();
   };
 
@@ -115,9 +127,13 @@ function WalletForm() {
           ))}
         </select>
       </label>
-      <button onClick={ handleClick }>
-        Adicionar Despesa
-      </button>
+      { editState ? (
+        <button onClick={ handleClickUpdate }>
+          Editar Despesa
+        </button>) : (
+          <button onClick={ handleClick }>
+            Adicionar Despesa
+          </button>) }
     </form>
   );
 }

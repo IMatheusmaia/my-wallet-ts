@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import GlobalStateType, { ExpensesType } from '../types/globalStateType';
-import { deleteExpenseAction } from '../redux/actions/walletActions';
+import { deleteExpenseAction, editExpenseAction } from '../redux/actions/walletActions';
 
 function Table() {
   const expensesState = useSelector((state:GlobalStateType) => state.wallet.expenses);
@@ -8,6 +8,10 @@ function Table() {
 
   const handleClickDelete = (id: number) => {
     dispatch(deleteExpenseAction(id));
+  };
+
+  const handleClickEdit = (id:number) => {
+    dispatch(editExpenseAction(id));
   };
 
   return (
@@ -27,38 +31,44 @@ function Table() {
       </thead>
       <tbody>
         {expensesState.map(({ id, value, tag, currency,
-          method, description, exchangeRates }:ExpensesType) => (
-            <tr
-              key={ id }
-            >
-              <td>{description}</td>
-              <td>{tag}</td>
-              <td>{method}</td>
-              <td>{Number(value).toFixed(2)}</td>
-              <td>{exchangeRates[currency].name}</td>
-              <td>{Number(exchangeRates[currency].ask).toFixed(2)}</td>
-              <td>
-                {
-                  (Number(value) * Number(exchangeRates[currency].ask)).toFixed(2)
-                  }
-              </td>
-              <td>Real</td>
-              <td>
-                <button
-                  id={ `edit-btn-${id}` }
-                  data-testid="edit-btn"
-                >
-                  Editar
-                </button>
-                <button
-                  data-testid="delete-btn"
-                  onClick={ () => handleClickDelete(Number(id)) }
-                >
-                  Excluir
-                </button>
-              </td>
-            </tr>
-        ))}
+          method, description, exchangeRates }:ExpensesType) => {
+          if (exchangeRates !== undefined) {
+            return (
+              <tr
+                key={ id }
+              >
+                <td>{description}</td>
+                <td>{tag}</td>
+                <td>{method}</td>
+                <td>{Number(value).toFixed(2)}</td>
+                <td>{exchangeRates[currency].name}</td>
+                <td>{Number(exchangeRates[currency].ask).toFixed(2)}</td>
+                <td>
+                  {
+                      (Number(value) * Number(exchangeRates[currency].ask)).toFixed(2)
+                      }
+                </td>
+                <td>Real</td>
+                <td>
+                  <button
+                    id={ `edit-btn-${id}` }
+                    data-testid="edit-btn"
+                    onClick={ () => handleClickEdit(Number(id)) }
+                  >
+                    Editar
+                  </button>
+                  <button
+                    data-testid="delete-btn"
+                    onClick={ () => handleClickDelete(Number(id)) }
+                  >
+                    Excluir
+                  </button>
+                </td>
+              </tr>
+            );
+          }
+          return '';
+        })}
       </tbody>
     </table>
   );

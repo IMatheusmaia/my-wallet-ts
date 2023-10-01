@@ -20,18 +20,18 @@ export type ExchangeRatesType = {
 };
 
 export type ExpensesType = {
-  id?: number,
+  id: number,
   value: string,
   currency: string,
   method: string,
   tag: string,
   description: string,
-  exchangeRates: ExchangeRatesType
+  exchangeRates?: ExchangeRatesType
 };
 
 type WalletType = {
   currencies: string[] | [],
-  expenses: ExpensesType[] | [],
+  expenses: ExpensesType[],
   editor: boolean,
   idToEdit: number,
 };

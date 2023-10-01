@@ -25,3 +25,15 @@ export const deleteExpenseAction = (id: number) => (
     type: 'DELETE_EXPENSE',
     payload: id,
   });
+
+export const editExpenseAction = (id: number) => (
+  {
+    type: 'EDIT_EXPENSE',
+    payload: id,
+    editor: true,
+  });
+
+export const updateExpenseAction = (newExpense: ExpensesType) => ({
+  type: 'UPDATE_EXPENSE',
+  payload: newExpense,
+});
