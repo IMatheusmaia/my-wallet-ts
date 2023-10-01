@@ -1,5 +1,5 @@
 import DispatchAsyncType from '../../types/dispatchAsync';
-import fetchData from '../../helper/request';
+import fetchData from '../../services/request';
 import { ExpensesType, ExchangeRatesType } from '../../types/globalStateType';
 
 export const currencesAction = (listCurrences: string[]) => ({

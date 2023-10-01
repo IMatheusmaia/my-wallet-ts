@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { currencesAction,
   thunkExpenseAction, updateExpenseAction } from '../redux/actions/walletActions';
 import GlobalStateType from '../types/globalStateType';
-import fetchData from '../helper/request';
+import fetchData from '../services/request';
 import DispatchAsyncType from '../types/dispatchAsync';
 import '../styles/walletForm.css';
 
@@ -128,7 +128,10 @@ function WalletForm() {
         </select>
       </label>
       { editState ? (
-        <button onClick={ handleClickUpdate }>
+        <button
+          id="update-button"
+          onClick={ handleClickUpdate }
+        >
           Editar Despesa
         </button>) : (
           <button onClick={ handleClick }>

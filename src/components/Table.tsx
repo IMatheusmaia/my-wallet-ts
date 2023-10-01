@@ -58,6 +58,7 @@ function Table() {
                     Editar
                   </button>
                   <button
+                    id={ `delete-btn-${id}` }
                     data-testid="delete-btn"
                     onClick={ () => handleClickDelete(Number(id)) }
                   >
